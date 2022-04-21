@@ -6,7 +6,7 @@ set=set_setrics.sh
 #switch to root, update and upgrade
 echo "are you logged in as root?"
 read root
-if [ $root = n ]
+if [ $root === n ]
 then 
 echo "Switch to root using \"sudo -i\" and run the script again"
 exit
@@ -22,7 +22,7 @@ apt install ifmetric -y
 wait
 echo "Are you using a cell hat?"
 read yn
-if [ $yn = y ]
+if [ $yn == y ]
 then
 echo "ifmetric wwan0 1" >> set_metrics.sh
 echo "ifmetric wlan1 2" >> set_metrics.sh
