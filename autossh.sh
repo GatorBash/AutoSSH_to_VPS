@@ -4,8 +4,13 @@ ssh=/lib/systemd/system/autossh.service
 set=set_setrics.sh
 
 #switch to root, update and upgrade
-echo "be ready to put in your password"
-sudo su root
+echo "are you logged in as root?"
+read root
+if [ $root = n ]
+then 
+echo "Switch to root using \"sudo -i\" and run the script again"
+exit
+else
 apt update -y
 wait
 apt full-upgrade -y
@@ -89,3 +94,5 @@ systemctl daemon-reload
 systemctl enable autossh
 systemctl start autossh
 echo "make sure you do a \"systemctl status autossh\" and ensure that you have a green bubble on it"
+esle
+fi
