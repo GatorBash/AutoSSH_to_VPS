@@ -52,6 +52,7 @@ clear
 sleep 2
 echo "What port do you want to use for ssh on the server?"
 read port
+
 #creating the autossh.service file
 touch $ssh
 echo "what is the ip of your server?"
@@ -71,8 +72,9 @@ echo " " >> $ssh
 echo "[Install]" >> $ssh
 echo "WantedBy=multi-user.target"
 clear
-echo "After the script runs Go back and put in your information into the /lib/systemd/system/autossh.service file"
 sleep 5
+
+#starting daemon
 systemctl daemon-reload
 systemctl enable autossh
 systemctl start autossh
