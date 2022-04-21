@@ -91,7 +91,10 @@ sleep 5
 
 #starting daemon
 systemctl daemon-reload
+wait
 systemctl enable autossh
+wait
 systemctl start autossh
+wait
 echo "make sure you do a \"systemctl status autossh\" and ensure that you have a green bubble on it"
 fi
