@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ssh=/lib/systemd/system/autossh.service
+set=set_setrics.sh
 
 #switch to root, update and upgrade
 echo "be ready to put in your password"
@@ -14,10 +15,19 @@ wait
 touch set_metrics.sh
 apt install ifmetric -y
 wait
+echo "Are you using a cell hat?"
+read yn
+if [ $yn = y ]
+then
 echo "ifmetric wwan0 1" >> set_metrics.sh
 echo "ifmetric wlan1 2" >> set_metrics.sh
 echo "ifmetric eth0 3" >> set_metrics.sh
 echo "ifmetric wlan0 4" >> set_metrics.sh
+else
+echo "ifmetric wlan0 1" >> $set
+echo "ifmetric wlan1 2" >> $set
+echo "ifmetric eth0 3" >> $set
+fi
 chomod +x set_metrics.sh
 cp set_metrics.sh /etc/NetworkManager/dispatcher.d/
 
