@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ssh=/lib/systemd/system/autossh.service
-set=set_setrics.sh
+set=/etc/NetworkManager/dispatcher.d/set_setrics.sh
 
 #switch to root, update and upgrade
 echo "are you logged in as root?"
