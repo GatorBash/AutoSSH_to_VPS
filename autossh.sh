@@ -82,10 +82,10 @@ echo "[Service]" >> $ssh
 echo "Environment=\"AUTOSSH_GATETIME=0\"" >> $ssh
 echo "Environment=\"AUTOSSH_FIRST_POLL=30\"" >> $ssh
 echo "Environment=\"AUTOSSH_POLL=60\"" >> $ssh
-echo 'ExecStart=/usr/bin/autossh -M 667 -N -i ~/.ssh/$key -R $port:local:22 $use@$serv -p 22'
+echo 'ExecStart=/usr/bin/autossh -M 667 -N -i ~/.ssh/$key -R $port:local:22 $use@$serv -p 22' >> $ssh
 echo " " >> $ssh
 echo "[Install]" >> $ssh
-echo 'WantedBy=multi-user.target'
+echo 'WantedBy=multi-user.target' >> $ssh
 clear
 sleep 5
 
