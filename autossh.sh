@@ -4,12 +4,10 @@ ssh=/lib/systemd/system/autossh.service
 set=/etc/NetworkManager/dispatcher.d/set_setrics.sh
 
 #switch to root, update and upgrade
-echo "are you logged in as root?"
-read root
-if [ $root == n ]
-then 
-echo "Switch to root using \"sudo -i\" and run the script again"
-exit
+if [[ $EUID -ne 0 ]]
+then
+   echo "This script must be run as root; run \"sudo -i\" this will log you into root." 
+   exit 1
 else
 apt update -y
 wait
