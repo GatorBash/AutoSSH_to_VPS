@@ -69,7 +69,7 @@ read -r port
 #creating the autossh.service file
 touch $ssh
 echo "what is the ip of your server?"
-read serv
+read -r serv
 echo "what is the user you're logging into on the server?"
 read -r use
 echo "[Unit]" >> $ssh
