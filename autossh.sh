@@ -19,8 +19,8 @@ touch set_metrics.sh
 apt install ifmetric -y
 wait
 echo "Are you using a cell hat?"
-read yn
-if [ $yn == y ]
+read -r yn
+if [ "$yn" == y ]
 then
 echo "ifmetric wwan0 1" >> set_metrics.sh
 echo "ifmetric wlan1 2" >> set_metrics.sh
@@ -59,19 +59,19 @@ sleep 1
 ssh-keygen -t rsa -b 4096
 echo "what did you name the cert?"
 echo "type it in exactly how you did when you made it."
-read $key
+read -r key
 touch $ssh
 clear
 sleep 2
 echo "What port do you want to use for ssh on the server?"
-read port
+read -r port
 
 #creating the autossh.service file
 touch $ssh
 echo "what is the ip of your server?"
 read serv
 echo "what is the user you're logging into on the server?"
-read use
+read -r use
 echo "[Unit]" >> $ssh
 echo "Description=AutoSSH Tunnel Service on Port $port" >> $ssh
 echo "After=network.target" >> $ssh
