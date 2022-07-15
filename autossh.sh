@@ -11,8 +11,8 @@ then
 else
 apt update -y
 wait
-apt full-upgrade -y
-wait
+#apt full-upgrade -y
+#wait
 
 #create ifmetric script and move to NetworkManger dir
 touch set_metrics.sh
