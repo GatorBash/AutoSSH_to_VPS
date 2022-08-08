@@ -8,7 +8,7 @@ if [[ $EUID -ne 0 ]]
 then
    echo "This script must be run as root; run \"sudo -i\" this will log you into root." 
    exit 1
-else
+fi
 apt update -y
 wait
 #apt full-upgrade -y
@@ -22,14 +22,14 @@ echo "Are you using a cell hat?"
 read -r yn
 if [ "$yn" == y ]
 then
-echo "ifmetric wwan0 1" >> set_metrics.sh
-echo "ifmetric wlan1 2" >> set_metrics.sh
-echo "ifmetric eth0 3" >> set_metrics.sh
-echo "ifmetric wlan0 4" >> set_metrics.sh
+   echo "ifmetric wwan0 1" >> set_metrics.sh
+   echo "ifmetric wlan1 2" >> set_metrics.sh
+   echo "ifmetric eth0 3" >> set_metrics.sh
+   echo "ifmetric wlan0 4" >> set_metrics.sh
 else
-echo "ifmetric wlan0 1" >> $set
-echo "ifmetric wlan1 2" >> $set
-echo "ifmetric eth0 3" >> $set
+   echo "ifmetric wlan0 1" >> $set
+   echo "ifmetric wlan1 2" >> $set
+   echo "ifmetric eth0 3" >> $set
 fi
 chomod +x set_metrics.sh
 cp set_metrics.sh /etc/NetworkManager/dispatcher.d/
@@ -95,4 +95,4 @@ wait
 systemctl start autossh
 wait
 echo "make sure you do a \"systemctl status autossh\" and ensure that you have a green bubble on it"
-fi
+
