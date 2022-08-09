@@ -64,7 +64,6 @@ ssh-keygen -t rsa -b 4096
 echo "what did you name the cert?"
 echo "type it in exactly how you did when you made it."
 read -r key
-touch $ssh
 clear
 sleep 2
 echo "What port do you want to use for ssh on the server?"
