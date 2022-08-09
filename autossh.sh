@@ -50,12 +50,16 @@ echo "Don't fuck it up loser."
 echo "Remember what you named it."
 echo "ready"
 sleep 1
+clear
 echo "3"
 sleep 1
+clear
 echo "2"
 sleep 1
+clear
 echo "1"
 sleep 1
+clear
 ssh-keygen -t rsa -b 4096
 echo "what did you name the cert?"
 echo "type it in exactly how you did when you made it."
