@@ -70,25 +70,26 @@ echo "What port do you want to use for ssh on the server?"
 read -r port
 
 #creating the autossh.service file
-touch $ssh
+
 echo "what is the ip of your server?"
 read -r serv
 echo "what is the user you're logging into on the server?"
 read -r use
-echo "[Unit]" >> $ssh
-echo "Description=AutoSSH Tunnel Service on Port $port" >> $ssh
-echo "After=network.target" >> $ssh
-echo " " >> $ssh
-echo "[Service]" >> $ssh
-echo "Environment=\"AUTOSSH_GATETIME=0\"" >> $ssh
-echo "Environment=\"AUTOSSH_FIRST_POLL=30\"" >> $ssh
-echo "Environment=\"AUTOSSH_POLL=60\"" >> $ssh
-echo "ExecStart=/usr/bin/autossh -M 667 -N -i ~/.ssh/$key -R $port:local:22 $use@$serv -p 22" >> $ssh
-echo " " >> $ssh
-echo "[Install]" >> $ssh
-echo "WantedBy=multi-user.target" >> $ssh
-clear
-sleep 5
+cat > $ssh << EOF
+[Unit]
+Description=AutoSSH Tunnel Service on Port $port
+After=network.target
+
+[Service]
+Environment="AUTOSSH_GATETIME=0"
+Environment="AUTOSSH_FIRST_POLL=30"
+Environment="AUTOSSH_POLL=60"
+ExecStart=/usr/bin/autossh -M 667 -N -i ~/.ssh/$key -R $port:local:22 $use@$serv -p 22
+
+[Install]
+WantedBy=multi-user.target
+EOF
+wait
 
 #starting daemon
 systemctl daemon-reload
