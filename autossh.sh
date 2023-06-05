@@ -4,15 +4,20 @@ ssh=/lib/systemd/system/autossh.service
 set=/etc/NetworkManager/dispatcher.d/set_setrics.sh
 
 #switch to root, update and upgrade
-if [[ $EUID -ne 0 ]]
+if [[ $UID -ne 0 ]]
 then
    echo "This script must be run as root; run \"sudo -i\" this will log you into root." 
    exit 1
 fi
+
+if ! ping -c 1 8.8.8.8 > /dev/null 2> /dev/null
+then
+   echo "connect to the internet"
+   exit 1
+fi
+
 apt update -y
 wait
-#apt full-upgrade -y
-#wait
 
 #create ifmetric script and move to NetworkManger dir
 touch set_metrics.sh
@@ -33,10 +38,8 @@ else
 fi
 chomod +x set_metrics.sh
 cp set_metrics.sh /etc/NetworkManager/dispatcher.d/
-
 clear
-echo "Are you still there?"
-sleep 3
+
 #configure ssh
 echo "ok here we go again"
 sudo apt install autossh
@@ -49,28 +52,16 @@ echo "Just press enter."
 echo "Don't fuck it up loser."
 echo "Remember what you named it."
 echo "ready"
-sleep 1
-clear
-echo "3"
-sleep 1
-clear
-echo "2"
-sleep 1
-clear
-echo "1"
-sleep 1
-clear
+sleep 2
 ssh-keygen -t rsa -b 4096
 echo "what did you name the cert?"
 echo "type it in exactly how you did when you made it."
 read -r key
-clear
 sleep 2
 echo "What port do you want to use for ssh on the server?"
 read -r port
 
 #creating the autossh.service file
-
 echo "what is the ip of your server?"
 read -r serv
 echo "what is the user you're logging into on the server?"
