@@ -4,7 +4,7 @@ ssh=/lib/systemd/system/autossh.service
 set=/etc/NetworkManager/dispatcher.d/set_setrics.sh
 
 #switch to root, update and upgrade
-if [[ $UID -ne 0 ]]
+if [ $UID -ne 0 ]
 then
    echo "This script must be run as root; run \"sudo -i\" this will log you into root." 
    exit 1
@@ -27,18 +27,20 @@ echo "Are you using a cell hat?"
 read -r yn
 if [ "$yn" == y ]
 then
-   echo "ifmetric wwan0 1" >> set_metrics.sh
-   echo "ifmetric wlan1 2" >> set_metrics.sh
-   echo "ifmetric eth0 3" >> set_metrics.sh
-   echo "ifmetric wlan0 4" >> set_metrics.sh
+cat > $set << EOF
+ifmetric wwan0 1
+ifmetric wlan1 2
+ifmetric eth0 3
+ifmetric wlan0 4
+EOF
 else
-   echo "ifmetric wlan0 1" >> $set
-   echo "ifmetric wlan1 2" >> $set
-   echo "ifmetric eth0 3" >> $set
+cat > $set << EOF
+ifmetric wlan0 1
+ifmetric wlan1 2
+ifmetric eth0 3
+EOF
 fi
-chomod +x set_metrics.sh
-cp set_metrics.sh /etc/NetworkManager/dispatcher.d/
-clear
+chomod +x $set
 
 #configure ssh
 echo "ok here we go again"
